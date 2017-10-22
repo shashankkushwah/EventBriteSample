@@ -15,7 +15,6 @@ import ui.sample.data.network.ApiHelper
 
 class EventListActivity : BaseActivity(), EventListContract.View, EventListAdapter.EventClickListener {
 
-
     private lateinit var apiHelper: ApiHelper
     private lateinit var picasso: Picasso
     private lateinit var presenter: EventListContract.Presenter
@@ -43,8 +42,7 @@ class EventListActivity : BaseActivity(), EventListContract.View, EventListAdapt
         recyclerview.adapter = adapter
 
         swiperefreshlayout.setOnRefreshListener {
-            swiperefreshlayout.isRefreshing = false
-//                presenter.loadEvents()
+            presenter.loadEvents(this@EventListActivity)
         }
     }
 

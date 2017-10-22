@@ -28,6 +28,7 @@ class EventListPresenter(apiHelper: ApiHelper) : BasePresenter<EventListContract
                 }
             })
         } else {
+            view?.hideProgress()
             view?.onError(R.string.no_internet_connection)
         }
     }
