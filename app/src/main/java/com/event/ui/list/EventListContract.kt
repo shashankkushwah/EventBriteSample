@@ -1,4 +1,4 @@
-package com.event.ui.main
+package com.event.ui.list
 
 import com.event.data.model.Event
 import com.event.ui.base.BaseContract
@@ -6,7 +6,7 @@ import com.event.ui.base.BaseContract
 /**
  * Created by Shashank on 22/10/2017.
  */
-interface MainContract {
+interface EventListContract {
 
     interface View : BaseContract.View {
         fun showEvents(events: List<Event>)
