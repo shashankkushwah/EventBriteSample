@@ -2,7 +2,6 @@ package com.event
 
 import android.app.Activity
 import android.app.Application
-import com.event.data.network.AuthRequestInterceptor
 import com.google.gson.GsonBuilder
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
@@ -49,9 +48,6 @@ class EventBriteApplication : Application() {
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             httpClientBuilder.addInterceptor(loggingInterceptor)
         }
-
-        val authRequestInterceptor = AuthRequestInterceptor(ApiConfig.TOKEN)
-        httpClientBuilder.addInterceptor(authRequestInterceptor)
 
         val okHttpClient = httpClientBuilder.readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)

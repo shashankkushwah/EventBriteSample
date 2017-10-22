@@ -9,7 +9,7 @@ import retrofit2.http.GET
  */
 interface EventBriteApi {
 
-    @GET("events/search/")
+    @GET("events/search/?token=VBUSKKCQ2VTXKPOP34PX")
     fun getEvents(): Observable<EventBriteResponse>
 
 }

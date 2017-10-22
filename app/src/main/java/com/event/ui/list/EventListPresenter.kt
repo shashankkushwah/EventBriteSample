@@ -10,7 +10,19 @@ import ui.sample.data.network.ApiHelper
 class EventListPresenter(apiHelper: ApiHelper) : BasePresenter<EventListContract.View>(apiHelper), EventListContract.Presenter {
 
     override fun loadEvents() {
+        view?.showProgress()
+        apiHelper.getEvents(object : ApiHelper.Callback<List<Event>> {
 
+            override fun onSuccess(data: List<Event>) {
+                view?.hideProgress()
+                view?.showEvents(data)
+            }
+
+            override fun onFailed(message: String) {
+                view?.hideProgress()
+                view?.onError(message)
+            }
+        })
     }
 
     override fun onEventClick(event: Event) {

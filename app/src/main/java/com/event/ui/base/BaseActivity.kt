@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 
-open class BaseActivity : AppCompatActivity(), BaseContract.View {
+abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
-
-    override fun setProgressIndicator(active: Boolean) {
-        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showMessage(message: String) {

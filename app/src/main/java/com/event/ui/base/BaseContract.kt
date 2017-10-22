@@ -8,7 +8,10 @@ import android.support.annotation.StringRes
 interface BaseContract {
 
     interface View {
-        fun setProgressIndicator(active: Boolean)
+
+        fun showProgress()
+
+        fun hideProgress()
 
         fun showMessage(message: String)
 
