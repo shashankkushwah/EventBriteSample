@@ -35,15 +35,4 @@
         app:layout_constraintStart_toEndOf="@+id/imageview_thumbnail"
         app:layout_constraintTop_toBottomOf="@+id/textview_title"/>
 
-    <TextView
-        android:id="@+id/textview_enddate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="@dimen/margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageview_thumbnail"
-        app:layout_constraintTop_toBottomOf="@+id/textview_startdate"/>
-
 </android.support.constraint.ConstraintLayout>

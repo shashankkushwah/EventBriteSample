@@ -9,6 +9,7 @@ import java.util.*
  * Created by Shashank on 22/10/2017.
  */
 class TimeUtils {
+
     companion object {
         private val jsonDateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
         private val displayDateTimeFormat = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
@@ -23,12 +24,14 @@ class TimeUtils {
                     jsonDateTimeFormat.timeZone = timeZone
                     cal.time = jsonDateTimeFormat.parse(dateTime.local)
                 } else {
-                    cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+                    val timeZone = TimeZone.getTimeZone("UTC")
+                    cal = Calendar.getInstance(TimeZone.getDefault())
+                    jsonDateTimeFormat.timeZone = timeZone
                     cal.time = jsonDateTimeFormat.parse(dateTime.utc)
                 }
                 date = displayDateTimeFormat.format(cal.time)
-            } catch (ex: ParseException) {
-                ex.printStackTrace()
+            } catch (e: ParseException) {
+                e.printStackTrace()
             }
             return date
         }

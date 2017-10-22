@@ -9,7 +9,8 @@ import com.event.ui.base.BaseContract
 interface EventDetailsContract {
 
     interface View : BaseContract.View {
-        fun showEventDetail(event: Event)
+        fun showEventDetails(event: Event)
+        fun openEventUrl(url: String)
     }
 
     interface Presenter : BaseContract.Presenter<View> {

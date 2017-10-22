@@ -1,5 +1,6 @@
 package com.event.ui.list
 
+import android.content.Context
 import com.event.data.model.Event
 import com.event.ui.base.BaseContract
 
@@ -15,7 +16,7 @@ interface EventListContract {
     }
 
     interface Presenter : BaseContract.Presenter<View> {
-        fun loadEvents()
+        fun loadEvents(context: Context)
 
         fun onEventClick(event: Event)
     }

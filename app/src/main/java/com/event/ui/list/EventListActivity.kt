@@ -32,7 +32,7 @@ class EventListActivity : BaseActivity(), EventListContract.View, EventListAdapt
         presenter.onAttach(this)
 
         setupViews()
-        presenter.loadEvents()
+        presenter.loadEvents(this)
     }
 
     private fun setupViews() {

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EventBrite</string>
+    <string name="goto_eventbrite">Go to EventBrite</string>
+    <string name="no_activity_found">No activity found for this action!</string>
+
+    <string name="no_internet_connection">No internet connection!</string>
 </resources>

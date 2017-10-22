@@ -49,17 +49,13 @@ class EventListAdapter(val picasso: Picasso, val eventClickListener: EventClickL
         private val thumbnailImageView: ImageView = itemView.findViewById(R.id.imageview_thumbnail)
         private val titleTextView: TextView = itemView.findViewById(R.id.textview_title)
         private val startDateTextView: TextView = itemView.findViewById(R.id.textview_startdate)
-        private val endDateTextView: TextView = itemView.findViewById(R.id.textview_enddate)
 
         fun bind(event: Event) {
             this.event = event
 
             picasso.load(event.logo.url).placeholder(R.color.colorLightGray).into(thumbnailImageView);
             titleTextView.text = event.name.text
-            val startDate = "Start Date: ${TimeUtils.parseRawDateTime(event.start)}"
-            startDateTextView.text = startDate
-            val endDate = "End Date: ${TimeUtils.parseRawDateTime(event.end)}"
-            endDateTextView.text = endDate
+            startDateTextView.text = TimeUtils.parseRawDateTime(event.start)
         }
     }
 

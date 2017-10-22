@@ -11,8 +11,10 @@ class EventDetailsPresenter(apiHelper: ApiHelper) : BasePresenter<EventDetailsCo
         EventDetailsContract.Presenter {
 
     override fun loadEventDetail(event: Event) {
+        view?.showEventDetails(event)
     }
 
     override fun onEventUrlClick(url: String) {
+        view?.openEventUrl(url)
     }
 }
