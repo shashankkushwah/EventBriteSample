@@ -64,7 +64,8 @@ class EventListActivity : BaseActivity(), EventListContract.View, EventListAdapt
 
     override fun showEventDetails(event: Event) {
         val intent = Intent(this, EventDetailsActivity::class.java)
-        intent.putExtra(EventDetailsActivity.EXTRA_EVENT, event)
+        intent.putExtra(EventDetailsActivity.EXTRA_EVENT_DESCRIPTION, event.description?.html)
+        intent.putExtra(EventDetailsActivity.EXTRA_EVENT_URL, event.url)
         startActivity(intent)
     }
 

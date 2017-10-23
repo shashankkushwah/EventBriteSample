@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.event.EventBriteApplication
 import com.event.R
-import com.event.data.model.Event
 import com.event.ui.base.BaseActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event_details.*
@@ -16,13 +15,15 @@ import ui.sample.data.network.ApiHelper
 class EventDetailsActivity : BaseActivity(), EventDetailsContract.View {
 
     companion object {
-        const val EXTRA_EVENT = "event"
+        const val EXTRA_EVENT_DESCRIPTION = "event_description"
+        const val EXTRA_EVENT_URL = "event_url"
     }
 
     private lateinit var apiHelper: ApiHelper
     private lateinit var picasso: Picasso
     private lateinit var presenter: EventDetailsContract.Presenter
-    private lateinit var event: Event
+    private var eventDescription: String? = null
+    private var eventUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +37,16 @@ class EventDetailsActivity : BaseActivity(), EventDetailsContract.View {
         presenter.onAttach(this)
 
         setupViews()
-        event = intent.getParcelableExtra<Event>(EXTRA_EVENT)
-        presenter.loadEventDetail(event)
+        eventDescription = intent.getStringExtra(EXTRA_EVENT_DESCRIPTION)
+        eventUrl = intent.getStringExtra(EXTRA_EVENT_URL)
+        presenter.loadEventDetail(eventDescription)
     }
 
     private fun setupViews() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         button_eventbrite.setOnClickListener {
-            presenter.onEventUrlClick(event.url)
+            presenter.onEventUrlClick(eventUrl)
         }
     }
 
@@ -56,11 +58,12 @@ class EventDetailsActivity : BaseActivity(), EventDetailsContract.View {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showEventDetails(event: Event) {
-        webview.loadData(event.description.html, "text/html", "UTF-8")
+    override fun showEventDetails(eventDescription: String) {
+        webview.loadData(eventDescription, "text/html", "UTF-8")
     }
 
     override fun openEventUrl(url: String) {
+
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)

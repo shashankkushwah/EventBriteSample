@@ -12,9 +12,9 @@ class TimeUtils {
 
     companion object {
         private val jsonDateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-        private val displayDateTimeFormat = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
+        private val displayDateTimeFormat = SimpleDateFormat("dd MMM yyyy, hh:mm a ZZZZ", Locale.getDefault())
 
-        fun parseRawDateTime(dateTime: DateTime): String? {
+        fun parseToCurrentLocale(dateTime: DateTime): String? {
             var date: String? = null
             try {
                 val cal: Calendar
@@ -29,6 +29,22 @@ class TimeUtils {
                     jsonDateTimeFormat.timeZone = timeZone
                     cal.time = jsonDateTimeFormat.parse(dateTime.utc)
                 }
+                date = displayDateTimeFormat.format(cal.time)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+            return date
+        }
+
+        fun parseToEventLocale(dateTime: DateTime): String? {
+            var date: String? = null
+            try {
+                val cal: Calendar
+                val timeZone = TimeZone.getTimeZone(dateTime.timezone)
+                jsonDateTimeFormat.timeZone = timeZone
+                displayDateTimeFormat.timeZone = timeZone
+                cal = Calendar.getInstance(timeZone)
+                cal.time = jsonDateTimeFormat.parse(dateTime.local)
                 date = displayDateTimeFormat.format(cal.time)
             } catch (e: ParseException) {
                 e.printStackTrace()

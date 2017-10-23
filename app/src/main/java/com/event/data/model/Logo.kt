@@ -6,7 +6,7 @@ import android.os.Parcelable
 /**
  * Created by Shashank on 22/10/2017.
  */
-class Logo(val original: Image, val id: Long, val url: String) : Parcelable {
+class Logo(val original: Image, val id: Long, val url: String?) : Parcelable {
     constructor(source: Parcel) : this(
             source.readParcelable<Image>(Image::class.java.classLoader),
             source.readLong(),

@@ -1,6 +1,6 @@
 package com.event.ui.details
 
-import com.event.data.model.Event
+import com.event.R
 import com.event.ui.base.BasePresenter
 import ui.sample.data.network.ApiHelper
 
@@ -10,11 +10,19 @@ import ui.sample.data.network.ApiHelper
 class EventDetailsPresenter(apiHelper: ApiHelper) : BasePresenter<EventDetailsContract.View>(apiHelper),
         EventDetailsContract.Presenter {
 
-    override fun loadEventDetail(event: Event) {
-        view?.showEventDetails(event)
+    override fun loadEventDetail(eventDescription: String?) {
+        if (eventDescription != null && !eventDescription.isEmpty()) {
+            view?.showEventDetails(eventDescription)
+        } else {
+            view?.onError(R.string.no_event_description)
+        }
     }
 
-    override fun onEventUrlClick(url: String) {
-        view?.openEventUrl(url)
+    override fun onEventUrlClick(url: String?) {
+        if (url != null && !url.isEmpty()) {
+            view?.openEventUrl(url)
+        } else {
+            view?.onError(R.string.no_event_url)
+        }
     }
 }

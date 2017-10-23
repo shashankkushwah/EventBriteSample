@@ -4,4 +4,6 @@
     <string name="no_activity_found">No activity found for this action!</string>
 
     <string name="no_internet_connection">No internet connection!</string>
+    <string name="no_event_description">Event description not found!</string>
+    <string name="no_event_url">Event url not found!</string>
 </resources>

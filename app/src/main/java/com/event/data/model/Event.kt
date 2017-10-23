@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 class Event(val name: Text, val description: Text, val id: Long, val url: String, val start: DateTime, val end:
 DateTime, val created: String, val changed: String, val capacity: Int, val status: String, val currency: String, val
             listed: Boolean, val shareable: Boolean, @SerializedName("resource_uri") val resourceUri: String, val
-            logo: Logo) : Parcelable {
+            logo: Logo?) : Parcelable {
     constructor(source: Parcel) : this(
             source.readParcelable<Text>(Text::class.java.classLoader),
             source.readParcelable<Text>(Text::class.java.classLoader),

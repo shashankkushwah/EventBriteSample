@@ -1,6 +1,5 @@
 package com.event.ui.details
 
-import com.event.data.model.Event
 import com.event.ui.base.BaseContract
 
 /**
@@ -9,14 +8,14 @@ import com.event.ui.base.BaseContract
 interface EventDetailsContract {
 
     interface View : BaseContract.View {
-        fun showEventDetails(event: Event)
+        fun showEventDetails(description: String)
         fun openEventUrl(url: String)
     }
 
     interface Presenter : BaseContract.Presenter<View> {
-        fun loadEventDetail(event: Event)
+        fun loadEventDetail(description: String?)
 
-        fun onEventUrlClick(url: String)
+        fun onEventUrlClick(url: String?)
     }
 
 }

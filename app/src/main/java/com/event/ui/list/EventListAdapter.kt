@@ -53,9 +53,14 @@ class EventListAdapter(val picasso: Picasso, val eventClickListener: EventClickL
         fun bind(event: Event) {
             this.event = event
 
-            picasso.load(event.logo.url).placeholder(R.color.colorLightGray).into(thumbnailImageView);
+            if (event.logo?.url != null) {
+                picasso.load(event.logo.url).placeholder(R.color.colorLightGray).into(thumbnailImageView);
+            } else {
+                picasso.load(R.color.colorLightGray).into(thumbnailImageView)
+            }
+
             titleTextView.text = event.name.text
-            startDateTextView.text = TimeUtils.parseRawDateTime(event.start)
+            startDateTextView.text = TimeUtils.parseToEventLocale(event.start)
         }
     }
 
