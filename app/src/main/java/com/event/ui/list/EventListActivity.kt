@@ -9,25 +9,27 @@ import com.event.R
 import com.event.data.model.Event
 import com.event.ui.base.BaseActivity
 import com.event.ui.details.EventDetailsActivity
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
-import ui.sample.data.network.ApiHelper
+import javax.inject.Inject
 
 class EventListActivity : BaseActivity(), EventListContract.View, EventListAdapter.EventClickListener {
 
-    private lateinit var apiHelper: ApiHelper
-    private lateinit var picasso: Picasso
-    private lateinit var presenter: EventListContract.Presenter
-    private lateinit var adapter: EventListAdapter
+    @Inject
+    lateinit var presenter: EventListContract.Presenter
+
+    @Inject
+    lateinit var adapter: EventListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val application = EventBriteApplication.get(this)
-        apiHelper = application.getApiHelper()
-        picasso = application.getPicasso()
-        presenter = EventListPresenter(apiHelper)
+        val component = DaggerEventListActivityComponent.builder()
+                .eventListActivityModule(EventListActivityModule(this))
+                .applicationComponent(EventBriteApplication.get(this).getApplicationComponent())
+                .build()
+        component.injectEventListActivity(this)
+
         presenter.onAttach(this)
 
         setupViews()
@@ -38,7 +40,6 @@ class EventListActivity : BaseActivity(), EventListContract.View, EventListAdapt
         recyclerview.setHasFixedSize(true)
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        adapter = EventListAdapter(picasso, this)
         recyclerview.adapter = adapter
 
         swiperefreshlayout.setOnRefreshListener {

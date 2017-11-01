@@ -10,12 +10,20 @@ import com.event.R
 import com.event.data.model.Event
 import com.event.utils.TimeUtils
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
 /**
  * Created by Shashank on 22/10/2017.
  */
-class EventListAdapter(val picasso: Picasso, val eventClickListener: EventClickListener) :
+class EventListAdapter @Inject constructor(val picasso: Picasso, val context: EventListActivity) :
         RecyclerView.Adapter<EventListAdapter.EventViewHolder>() {
+
+    init {
+        if (context !is EventClickListener) {
+            throw IllegalArgumentException("activity should implement EventClickListener!")
+        }
+    }
+
 
     private var events: List<Event> = ArrayList()
 
@@ -40,7 +48,7 @@ class EventListAdapter(val picasso: Picasso, val eventClickListener: EventClickL
 
         init {
             itemView.setOnClickListener {
-                eventClickListener.onEventClick(event!!)
+                context.onEventClick(event!!)
             }
         }
 

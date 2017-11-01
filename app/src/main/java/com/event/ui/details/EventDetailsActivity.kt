@@ -7,9 +7,8 @@ import android.view.MenuItem
 import com.event.EventBriteApplication
 import com.event.R
 import com.event.ui.base.BaseActivity
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event_details.*
-import ui.sample.data.network.ApiHelper
+import javax.inject.Inject
 
 
 class EventDetailsActivity : BaseActivity(), EventDetailsContract.View {
@@ -19,9 +18,9 @@ class EventDetailsActivity : BaseActivity(), EventDetailsContract.View {
         const val EXTRA_EVENT_URL = "event_url"
     }
 
-    private lateinit var apiHelper: ApiHelper
-    private lateinit var picasso: Picasso
-    private lateinit var presenter: EventDetailsContract.Presenter
+    @Inject
+    lateinit var presenter: EventDetailsContract.Presenter
+
     private var eventDescription: String? = null
     private var eventUrl: String? = null
 
@@ -29,11 +28,11 @@ class EventDetailsActivity : BaseActivity(), EventDetailsContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
 
-        val application = EventBriteApplication.get(this)
-        apiHelper = application.getApiHelper()
-        picasso = application.getPicasso()
+        val component = DaggerEventDetailsActivityComponent.builder()
+                .applicationComponent(EventBriteApplication.get(this).getApplicationComponent())
+                .build()
+        component.injectEventDetailsActivity(this)
 
-        presenter = EventDetailsPresenter(apiHelper)
         presenter.onAttach(this)
 
         setupViews()
